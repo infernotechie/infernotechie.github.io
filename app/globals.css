@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 160 100% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 330 100% 65%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 330 100% 65%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 160 100% 50%;
+
+    --radius: 0.5rem;
+  }
+
+  .cosmic-theme {
+    --background: 230 50% 5%;
+    --foreground: 210 40% 98%;
+
+    --card: 230 50% 7%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 230 50% 7%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 220 100% 60%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 250 100% 65%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 230 50% 15%;
+    --muted-foreground: 210 40% 65%;
+
+    --accent: 250 100% 65%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 230 50% 20%;
+    --input: 230 50% 20%;
+    --ring: 220 100% 60%;
+
+    --neon-teal: #00aaff;
+    --neon-pink: #aa55ff;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-neon-teal to-neon-pink;
+  }
+
+  .card-3d {
+    transform-style: preserve-3d;
+    @apply transition-all duration-500 hover:translate-y-[-10px] hover:shadow-lg;
+  }
+
+  .glass-panel {
+    @apply bg-opacity-10 backdrop-blur-md bg-white border border-white/20 rounded-xl;
+  }
+
+  .cyber-border {
+    @apply border border-neon-teal/50 shadow-neon-teal/20;
+  }
+
+  .cyber-button {
+    @apply relative overflow-hidden px-6 py-3 rounded-md bg-cyber-dark border border-neon-teal/50 text-white 
+           transition-all duration-300 hover:shadow-neon-teal hover:border-neon-teal;
+  }
+
+  .cyber-button::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-neon-teal/20 to-neon-pink/20 opacity-0 transition-opacity duration-300;
+  }
+
+  .cyber-button:hover::before {
+    @apply opacity-100;
+  }
+
+  .cyber-input {
+    @apply bg-cyber-dark border border-neon-teal/30 rounded-md px-4 py-2 text-white focus:border-neon-teal 
+           focus:ring-1 focus:ring-neon-teal focus:outline-none transition-all duration-300;
+  }
+
+  .cyber-card {
+    @apply bg-cyber-dark border border-neon-teal/30 rounded-xl p-6 transition-all duration-300 
+           hover:border-neon-teal/70 hover:shadow-neon-teal/20;
+  }
+
+  .cyber-grid-bg {
+    @apply bg-cyber-grid;
+    background-position: center;
+  }
+
+  .particle-container {
+    @apply absolute inset-0 z-0 overflow-hidden;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cyber-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-neon-teal to-neon-pink rounded-full;
+}
+
+/* Cursor styles */
+.custom-cursor {
+  @apply fixed w-8 h-8 rounded-full pointer-events-none z-50 mix-blend-screen;
+  transform: translate(-50%, -50%);
+}
+
+/* Fonts */
+@font-face {
+  font-family: "Neue Machina";
+  src: url("/fonts/NeueMachina-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Neue Machina", sans-serif;
+}
+
+body {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+/* Add theme transition animation */
+.theme-transition {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-transition::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  transform: scale(0);
+  border-radius: 50%;
+  z-index: 9999;
+  animation: water-drop 1.5s ease-in-out forwards;
+  pointer-events: none;
+}
+
+@keyframes water-drop {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Add company name and slogan animations */
+.company-name-animation {
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+.slogan-animation {
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
